@@ -2,7 +2,7 @@
 
 I've created this repository to save for future use and catalog my solutions for the Vanhack proficiency test @ Hacker rank.
 
-The test has 7 days duration, in which I must solve 4 problems using algorithms.
+The test has 7 days deadline, in which I must solve 4 problems using algorithms.
 
 ## 1º test - Race car
 
