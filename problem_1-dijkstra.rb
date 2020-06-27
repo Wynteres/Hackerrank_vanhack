@@ -2,10 +2,9 @@ require 'ostruct'
 
 class Vertex
   attr_accessor :neighboors,
-    :visited,
     :distance_from_start
 
-  attr_reader :lane, :row, :obstacle_vertex
+  attr_reader :lane, :obstacle_vertex
 
   MAX_DISTANCE = 4294967296
 
