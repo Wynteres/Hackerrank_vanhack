@@ -1,4 +1,5 @@
 require 'ostruct'
+require 'pry-byebug'
 
 class Vertex
   attr_accessor :neighboors,
@@ -11,7 +12,7 @@ class Vertex
   def initialize(lane:, obstacle_vertex: false, distance_from_start: MAX_DISTANCE)
     @lane = lane
     @obstacle_vertex = obstacle_vertex
-    @neighboors = []
+    @neighboors = Array.new
     @distance_from_start = distance_from_start
   end
 end
@@ -25,23 +26,9 @@ class Edge
   end
 end
 
-class Dijkstra
-  attr_reader :graph_map
-
-  def initialize(obstacles)
-    @graph_map = [
-      [
-        Vertex.new(lane: 0, obstacle_vertex: true),
-        Vertex.new(lane: 1, obstacle_vertex: false, distance_from_start: 0),
-        Vertex.new(lane: 2, obstacle_vertex: true),
-      ]
-    ]
-
+class RaceCarMovement
+  def calculate(obstacles)
     @obstacles = obstacles
-    @rows = obstacles.size
-  end
-
-  def calculate
     populate_graph_map
     generate_edges
     shortest_path
@@ -65,20 +52,26 @@ class Dijkstra
   end
 
   def populate_graph_map
-    new_graphs = (1..@rows).map do |row|
-      row = (0..2).map do |lane|
-        obstacle_vertex = (@obstacles[row-1] - 1 == lane)
+    @graph_map = [[]]
+    @graph_map[0].push(Vertex.new(lane: 0, obstacle_vertex: true))
+    @graph_map[0].push(Vertex.new(lane: 1, obstacle_vertex: false, distance_from_start: 0))
+    @graph_map[0].push(Vertex.new(lane: 2, obstacle_vertex: true))
 
-        Vertex.new(lane: lane, obstacle_vertex: obstacle_vertex)
+    new_vertex =
+      (1..@obstacles.size).map do |row|
+        (0..2).map do |lane|
+          obstacle_vertex = (@obstacles[row-1] - 1 == lane)
+
+          Vertex.new(lane: lane, obstacle_vertex: obstacle_vertex)
+        end
       end
-    end
 
-    @graph_map += new_graphs
+    @graph_map.concat(new_vertex)
   end
 
   def generate_edges
     @graph_map.each_with_index do |lanes, index|
-      unless index == @rows
+      unless index == @obstacles.size
         next_vertex_set = @graph_map[index + 1]
         lanes.each do |vertex|
           next if vertex.obstacle_vertex
