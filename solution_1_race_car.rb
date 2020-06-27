@@ -1,6 +1,3 @@
-require 'ostruct'
-require 'pry-byebug'
-
 class Vertex
   attr_accessor :neighboors,
     :distance_from_start
@@ -27,6 +24,10 @@ class Edge
 end
 
 class RaceCarMovement
+  def self.calculate(obstacles)
+    new.calculate(obstacles)
+  end
+
   def calculate(obstacles)
     @obstacles = obstacles
     populate_graph_map
