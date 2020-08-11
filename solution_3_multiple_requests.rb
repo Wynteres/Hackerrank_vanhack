@@ -15,8 +15,7 @@ class RequestReader
 
   def count_requests
     counter = Hash.new(0)
-    @elements.each { |element| counter[element] += 1 }
-    @elements.select! { |element| counter[element] > 1 }.uniq!
+    @elements.each { |element| counter[element] += 1 }.select! { |element| counter[element] > 1 }.uniq!
   end
 
   def write_response_file
