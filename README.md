@@ -19,3 +19,14 @@ it from lane *1 to lane 2* and from lane *1 to lane 3* is counted as a single mo
 [Go to solution file clicking her](solution_1_race_car.rb)
 
 I've decided to use an **Dijkstra** like approach, It's almost a perfect fine Dijkstra algorithm with some modifications to fit the proposed problem.
+
+
+
+## 3º test - Multiple requests
+
+....
+
+### Solution
+[Go to solution file clicking here](solution_3_multiple_requests.rb)
+
+It's used a regex to get the dates and them is filtered by the number o occurences
